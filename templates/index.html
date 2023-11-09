@@ -1,11 +1,34 @@
-<label for="picture">Upload hired_employees.csv:</label>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> File Upload </title>
+    <style>
 
-<input type="file" name="picture" accept="image/*" capture />
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
 
-<label for="voice">Upload departments.csv:</label>
+    input {
+      margin-bottom: 1rem;
+    }
 
-<input type="file" name="picture" accept="image/*" capture />
+    </style>
+  </head>
+  <body>
+    <form method="post" action="" enctype="multipart/form-data">
 
-<label for="voice">Upload jobs.csv:</label>
+      <label for="upload_file_form">Upload at the same time the following files:</label>
+      <ul>
+          <li>hired_employees.csv</li>
+          <li>departments.csv</li>
+          <li>jobs.csv</li>
+      </ul>
 
-<input type="file" name="picture" accept="image/*" capture />
+      <input type="file" name="files" accept=".csv" capture multiple/>
+
+      <p><input type="submit" value="Submit"></p>
+    </form>
+
+  </body>
+</html>
