@@ -1,7 +1,20 @@
-from flask import render_template, request, redirect, url_for
+from flask import   render_template, \
+                    request, \
+                    redirect, \
+                    url_for
 from flask import Flask
+from src import orchestrator
 
 app = Flask(__name__)
+
+@app.route('/index/end_upload')
+def process_files(name = None):
+    orchestrator.ingest_data()
+    return render_template('postupload.html', name = name)
+
+@app.route('/')
+def say_hello(name = None):
+    return render_template('welcome.html', name = name)
 
 @app.route('/index/')
 def show_form(name = None):
@@ -13,8 +26,4 @@ def upload_files():
     for file in file_objects:
         if file.filename != '':
             file.save('landingzone/'+file.filename)
-    return redirect(url_for('show_form'))
-
-@app.route("/")
-def say_hello(name = None):
-    return render_template('welcome.html', name = name)
+    return redirect(url_for('process_files'))
