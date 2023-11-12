@@ -5,9 +5,10 @@ from src import loader
 import os
 
 def ingest_data():
-    # 1. check if the files are available on landing zone
+    # check if the files are available on landing zone
     files_path = "landingzone/"
     file_list = os.listdir(files_path)
+    # only select .csv files to upload to db
     file_list = handler.filter_file_list(file_list, '.csv')
 
     for file_name in file_list:

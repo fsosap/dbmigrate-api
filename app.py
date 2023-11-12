@@ -7,11 +7,6 @@ from src import orchestrator
 
 app = Flask(__name__)
 
-@app.route('/index/end_upload')
-def process_files(name = None):
-    orchestrator.ingest_data()
-    return render_template('postupload.html', name = name)
-
 @app.route('/')
 def say_hello(name = None):
     return render_template('welcome.html', name = name)
@@ -27,3 +22,8 @@ def upload_files():
         if file.filename != '':
             file.save('landingzone/'+file.filename)
     return redirect(url_for('process_files'))
+
+@app.route('/index/end_upload')
+def process_files(name = None):
+    orchestrator.ingest_data()
+    return render_template('postupload.html', name = name)
