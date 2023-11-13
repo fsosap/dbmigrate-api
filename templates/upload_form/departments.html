@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title> Record Individual Upload </title>
+        <style>
+    
+        label {
+          display: block;
+          margin-top: 1rem;
+        }
+    
+        input {
+          margin-bottom: 1rem;
+        }
+    
+        </style>
+      </head>
+    <body> 
+        <h2> Provide the new record details for departments table </h2> 
+    
+        <form method="post" action="{{ url_for('upload_row_to', table_name = 'departments') }}"> 
+            <label for="department_label">Department name</label> 
+            <input type="text" id="department" /> 
+
+            <p><input type="submit" value="Submit"></p>
+        </form> 
+    </body> 
+  
+</html> 

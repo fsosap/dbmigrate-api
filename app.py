@@ -7,7 +7,11 @@ from src import orchestrator
 
 app = Flask(__name__)
 
-
+FIELDS = {
+    'hired_employees':['name', 'department_id', 'job_id'],
+    'departments':['department'],
+    'jobs':['job']
+}
 
 @app.route('/')
 def say_hello(name = None):
@@ -35,3 +39,19 @@ def upload_files():
 def process_files(name = None):
     orchestrator.ingest_data()
     return render_template('postupload.html', name = name)
+
+# !! Work in progress.
+@app.route('/per_record_upload/<string:table_name>', methods = ["GET", "POST"])
+def upload_row_to(table_name):
+    if request.method == 'POST':
+        response = []
+        for field_name in FIELDS[table_name]:
+            if 'id' not in field_name: 
+                response.append(f"'{request.args.get(field_name)}'")
+            else:
+                response.append(request.args.get(field_name))
+        print(response)
+        orchestrator.upload(values = response, table_name = table_name)
+        return redirect(url_for('say_hello'))
+    else:
+        return render_template(f'upload_form/{table_name}.html')

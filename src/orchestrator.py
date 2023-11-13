@@ -2,7 +2,9 @@ from src import file_handler as handler
 from src import db_operations as dbops
 
 import pandas as pd
+import datetime
 import os
+
 
 HEADERS = {
     'hired_employees': ['id', 'name', 'datetime', 'department_id', 'job_id'],
@@ -40,3 +42,17 @@ def check_db() -> bool:
             return True
     except pd.errors.DatabaseError:
         return False
+    
+def upload(values: [], table_name: str) -> None:
+    ids_dataframe = dbops.execute_sql_query(f'SELECT id FROM {table_name}')
+    max_id = ids_dataframe['id'].max()
+    record_values = values
+    record_values.insert(0, max_id + 1)
+    if table_name == 'hired_employees':
+        current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+        record_values.insert(2, current_timestamp)
+    query =    f"INSERT INTO {table_name} ([{'],['.join(HEADERS[table_name])}]) \
+                VALUES {','.join(map(str, record_values))}" 
+    print (query)
+    
+    

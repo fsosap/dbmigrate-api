@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title> Record Individual Upload </title>
+        <style>
+    
+        label {
+          display: block;
+          margin-top: 1rem;
+        }
+    
+        input {
+          margin-bottom: 1rem;
+        }
+    
+        </style>
+      </head>
+    <body> 
+        <h2> Provide the new record details for hired_employees table </h2> 
+    
+        <form method="post" action="{{ url_for('upload_row_to', table_name = 'hired_employees') }}"> 
+            <label for="name_label">Employee name</label> 
+            <input type="text" id="name" /> 
+            <label for="deparment_id_label">Department ID</label> 
+            <input type="number" id="deparment_id" /> 
+            <label for="job_id_label">Job ID</label> 
+            <input type="number" id="job_id" /> 
+
+            <p><input type="submit" value="Submit"></p>
+        </form> 
+    </body> 
+  
+</html> 
