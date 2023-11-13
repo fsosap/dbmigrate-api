@@ -1,8 +1,14 @@
 from src import file_handler as handler
 from src import db_operations as dbops
-from src import orchestrator
-from src import loader 
+
+import pandas as pd
 import os
+
+HEADERS = {
+    'hired_employees': ['id', 'name', 'datetime', 'department_id', 'job_id'],
+    'departments': ['id', 'department'],
+    'jobs': ['id', 'job']
+}
 
 def ingest_data():
     # check if the files are available on landing zone
@@ -13,9 +19,16 @@ def ingest_data():
 
     for file_name in file_list:
         if file_name:
-            df = loader.read_from_csv(files_path + file_name)
             table_name = file_name.split('.')[0]
-
+            df = pd.read_csv(filepath_or_buffer = files_path + file_name,\
+                                       names = HEADERS[table_name])
             # load df to sqlite
             dbops.write_table_from_df(table_name, df)
             print(f"Sucessful upload of {file_name} table to sqlite!")
+
+def query_head(table_name: str) -> None:
+    query = f'SELECT * FROM {table_name} LIMIT 10'
+    html_code = dbops.execute_sql_query(query).to_html(header=True, index=False)
+    with open(file = f'templates/{table_name}.html', mode="w") as fp:
+        fp.write(html_code)
+    fp.close()

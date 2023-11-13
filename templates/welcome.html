@@ -8,7 +8,16 @@
 <body>
 
     <h1>Welcome!</h1>
+    <p>PREVIEW THE CURRENT RECORDS ON TABLES:    </p>
+        <div> hired_employees: </div>
+        {% include 'hired_employees.html' %}
+        <div> departments: </div>
+        {% include 'departments.html' %}
+        <div> jobs: </div>
+        {% include 'jobs.html' %}
+
     <a href="http://127.0.0.1:5000/index/"> Please click here to proceed with the data ingestion </a>
+
 
 </body>
 </html>

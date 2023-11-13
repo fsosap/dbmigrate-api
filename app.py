@@ -7,9 +7,14 @@ from src import orchestrator
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def say_hello(name = None):
-    return render_template('welcome.html', name = name)
+    hired_employees_head, departments_head, jobs_head = orchestrator.query_head('hired_employees'),\
+                                                        orchestrator.query_head('departments'),\
+                                                        orchestrator.query_head('jobs')
+    return render_template('welcome.html', result = [hired_employees_head, departments_head, jobs_head])
 
 @app.route('/index/')
 def show_form(name = None):
