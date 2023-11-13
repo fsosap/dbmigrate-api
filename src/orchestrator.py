@@ -29,6 +29,14 @@ def ingest_data():
 def query_head(table_name: str) -> None:
     query = f'SELECT * FROM {table_name} LIMIT 10'
     html_code = dbops.execute_sql_query(query).to_html(header=True, index=False)
-    with open(file = f'templates/{table_name}.html', mode="w") as fp:
+    with open(file = f'templates/preview/{table_name}.html', mode="w") as fp:
         fp.write(html_code)
     fp.close()
+
+def check_db() -> bool:
+    try:
+        table_list = dbops.execute_sql_query("SELECT name FROM sqlite_master WHERE type='table';")
+        if len(table_list.index) == 3:
+            return True
+    except pd.errors.DatabaseError:
+        return False

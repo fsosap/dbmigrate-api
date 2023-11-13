@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+
+    <h1>Welcome!</h1>
+
+    <p>PREVIEW THE CURRENT RECORDS ON TABLES:    </p>
+        <div> hired_employees: </div>
+        {% include 'preview/hired_employees.html' %}
+        <div> departments: </div>
+        {% include 'preview/departments.html' %}
+        <div> jobs: </div>
+        {% include 'preview/jobs.html' %}
+
+        <a href="http://127.0.0.1:5000/index/"> Please click here to proceed with the data ingestion via file upload </a>
+
+
+</body>
+</html>
