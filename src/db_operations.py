@@ -11,3 +11,14 @@ def execute_sql_query(query:str) -> pd.DataFrame:
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
+
+def execute_sql_file(query_path:str) -> pd.DataFrame:
+    conn = sqlite3.connect('db/HR_Admin.sqlite')
+    
+    with open(query_path, 'r') as query:
+        df = pd.read_sql_query(query.read(), conn)
+
+    query.close()
+    conn.close()
+
+    return df

@@ -55,4 +55,9 @@ def upload(values: [], table_name: str) -> None:
                 VALUES {','.join(map(str, record_values))}" 
     print (query)
     
-    
+def run_query(query_filename):
+    query_path = f'src/query/{query_filename}.sql'
+    html_code = dbops.execute_sql_file(query_path).to_html(header=True, index=False)
+    with open(file = f'templates/results/{query_filename}.html', mode="w") as fp:
+        fp.write(html_code)
+    fp.close()

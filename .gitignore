@@ -162,3 +162,4 @@ cython_debug/
 landingzone/*.csv
 db/*.sqlite
 templates/preview/*.html
+templates/results/*.html

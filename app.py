@@ -55,3 +55,13 @@ def upload_row_to(table_name):
         return redirect(url_for('say_hello'))
     else:
         return render_template(f'upload_form/{table_name}.html')
+    
+@app.route('/query/quarters')
+def get_employees_per_quarter():
+    orchestrator.run_query('quarter')
+    return render_template('results/quarter.html')
+
+@app.route('/query/mean')
+def get_more_hiring_depts():
+    orchestrator.run_query('mean')
+    return render_template('results/mean.html')
